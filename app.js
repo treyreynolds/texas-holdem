@@ -15,6 +15,10 @@ app.players = [];
 app.board = {
   cards: []
 };
+app.rounds = [];
+app.round = {
+  winner: ''
+}
 
 /**
  * Generates the Deck, duh
@@ -125,9 +129,9 @@ function showPlayers(){
   app.players.forEach(function(player, i){
     $('#players').append(
       '<div class="col-md-3">' + 
-        '<div class="panel panel-default">' +
+        '<div class="panel panel-default" id="'+player.id+'">' +
           '<div class="panel-heading">' + player.name + "</div>" +
-          '<div class="panel-body" id="'+player.id+'">' +
+          '<div class="panel-body">' +
             '<dl>' +
               '<dt>Hand:</dt><dd>'+ player.hand[0].name+' + '+player.hand[1].name +'</dd>' +
             '</dl>' +
@@ -163,8 +167,13 @@ function showRiver(){
 
 function showPlayerHandCalculation(){
   app.players.forEach(function(player,i){
-    $('#'+player.id).append(player.handValue.description);
+    $('#'+player.id+' .panel-body').append(player.handValue.description);
   });
+
+  if(app.round.winner){
+    $('#'+app.round.winner).removeClass('panel-default');
+    $('#'+app.round.winner).addClass('panel-success');
+  }
 }
 
 $(function() {

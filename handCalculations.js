@@ -2,6 +2,10 @@ function calculatePlayerHands(){
   var bestHandRank = 0;
   app.players.forEach(function(player,i){
     app.players[i].handValue = calculatePlayerHand(player.hand);
+    if(app.players[i].handValue.rank > bestHandRank){
+      bestHandRank = app.players[i].handValue.rank; 
+      app.round.winner = app.players[i].id;
+    }
   });
 }
 
